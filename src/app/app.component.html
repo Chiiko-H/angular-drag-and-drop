@@ -1,0 +1,30 @@
+<div>
+  <input type="radio" name="gridView" (change)="gridViewChange('2by2')">2×2
+  <input type="radio" name="gridView" (change)="gridViewChange('4by2')">4×2
+  <input type="radio" name="gridView" (change)="gridViewChange('3by5')">3×5
+</div>
+
+
+<h2>main</h2>
+<div class="example-container container">
+  <div cdkDropList #todoList="cdkDropList" [cdkDropListData]="todo" [cdkDropListConnectedTo]="[doneList]" class="row"
+    (cdkDropListDropped)="drop($event)">
+    <div class="example-box"
+      [ngClass]="{'col-3':gridView == '4by2','col-4':gridView == '3by5','col-6':gridView == '2by2'}"
+      *ngFor="let item of todo" cdkDrag>{{item}}</div>
+  </div>
+</div>
+
+<h2>bottom</h2>
+<div class="example-container bottom-item">
+  <div>
+    <button class="space-item">space</button>
+  </div>
+  <div cdkDropList #doneList="cdkDropList" [cdkDropListData]="done" [cdkDropListConnectedTo]="[todoList]"
+    class="bottom-list" (cdkDropListDropped)="drop($event)">
+    <div class="bottom-box" *ngFor="let item of done" cdkDrag>{{item}}</div>
+  </div>
+  <div>
+    <button class="space-item">trash</button>
+  </div>
+</div>
